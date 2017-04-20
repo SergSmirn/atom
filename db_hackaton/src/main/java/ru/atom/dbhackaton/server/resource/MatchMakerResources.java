@@ -1,4 +1,4 @@
-package ru.atom.dbhackaton.server.mm;
+package ru.atom.dbhackaton.server.resource;
 
 import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
@@ -6,18 +6,20 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import ru.atom.dbhackaton.server.dao.Database;
 import ru.atom.dbhackaton.server.dao.LoginedUserDao;
+import ru.atom.dbhackaton.server.mm.Connection;
+import ru.atom.dbhackaton.server.mm.ThreadSafeQueue;
 import ru.atom.dbhackaton.server.model.LoginedUser;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-// мб нахуй удалить ету паеботу?
 
 /**
- * Created by konstantin on 19.04.17.
+ * Created by Alex on 20.04.17.
  */
+
 @Path("/")
-public class ConnectionHandler {
-    private static final Logger log = LogManager.getLogger(ConnectionHandler.class);
+public class MatchMakerResources {
+    private static final Logger log = LogManager.getLogger(ru.atom.dbhackaton.server.mm.ConnectionHandler.class);
 
     @Path("/join")
     @GET
@@ -28,7 +30,7 @@ public class ConnectionHandler {
 
         LoginedUser user = LoginedUserDao.getByToken(session, token);
 
-        ThreadSafeQueue.getInstance().offer(new Connection(token);
+        ThreadSafeQueue.getInstance().offer(new Connection((token);
         String GameURL = "wtfis.ru:8090/gs/12345";
         return Response.ok(GameURL).build();
     }
@@ -46,3 +48,4 @@ public class ConnectionHandler {
         return Response.ok().build();
     }
 }
+

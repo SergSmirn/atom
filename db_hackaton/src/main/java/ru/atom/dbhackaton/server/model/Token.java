@@ -15,4 +15,9 @@ public class Token {
         long counter = random.nextLong();
         return ((Long) counter);
     }
+
+    public Long tokenToLong() {
+        return ;
+    }
+
 }

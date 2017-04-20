@@ -16,20 +16,31 @@ public class MatchMaker implements Runnable {
 
     @Override
     public void run() {
-        log.info("Started");
+        log.info("Match Maker Started");
         List<Connection> candidates = new ArrayList<>(GameSession.PLAYERS_IN_GAME);
         while (!Thread.currentThread().isInterrupted()) {
+
             try {
                 candidates.add(
                         ThreadSafeQueue.getInstance().poll(10_000, TimeUnit.SECONDS)
                 );
+
+
+                /* Check for null
+            Connection connection = ThreadSafeQueue.getInstance().poll();
+            if (connection != null) {
+                candidates.add(connection);
+                }
+                 */
+
+
             } catch (InterruptedException e) {
                 log.warn("Timeout reached");
             }
 
             if (candidates.size() == GameSession.PLAYERS_IN_GAME) {
                 GameSession session = new GameSession(candidates.toArray(new Connection[0]));
-                log.info(session);
+                log.info("create new session! {}", session);
                 ThreadSafeStorage.put(session);
                 candidates.clear();
             }
