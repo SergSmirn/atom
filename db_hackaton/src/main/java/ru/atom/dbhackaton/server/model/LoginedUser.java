@@ -27,7 +27,7 @@ public class LoginedUser {
     private Date time;
 
     @Column(name = "token", nullable = false)
-    private Long token = Token.createToken();
+    private String token = Token.createToken();
 
     public User getUser() {
         return reguser;
@@ -47,11 +47,11 @@ public class LoginedUser {
         return this;
     }
 
-    public LoginedUser setToken(Long token) {
+    public LoginedUser setToken(String token) {
         this.token = token;
         return this;
     }
-    public Long getToken() {
+    public String getToken() {
         return token;
     }
 

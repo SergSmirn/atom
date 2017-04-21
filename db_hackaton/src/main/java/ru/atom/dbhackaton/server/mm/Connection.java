@@ -1,21 +1,21 @@
 package ru.atom.dbhackaton.server.mm;
 
-import ru.atom.dbhackaton.server.model.Token
+import ru.atom.dbhackaton.server.model.Token;
 import java.util.concurrent.atomic.AtomicLong;
 /**
  * Created by konstantin on 19.04.17.
  */
 
 public class Connection {
-    private final Token token;
+    private final String token;
     private AtomicLong sessionId = new AtomicLong(-1);
 
-    public Connection(Token token) {
+    public Connection(String token) {
         this.token = token;
     }
 
 
-    public Token getToken() {
+    public String getToken() {
         return token;
     }
 
@@ -50,7 +50,7 @@ public class Connection {
     @Override
     public String toString() {
         return "Connection{" +
-                "token='" + token.toString() + '\'' +
+                "token='" + token + '\'' +
                 ", sessionId=" + sessionId +
                 '}';
     }

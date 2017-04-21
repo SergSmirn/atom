@@ -22,13 +22,13 @@ public class ConnectionHandler {
     @Path("/join")
     @GET
     @Consumes("application/x-www-form-urlencoded")
-    public Response join(@QueryParam("token") Long token) {
+    public Response join(@QueryParam("token") String token) {
 
         Session session = Database.session();
 
         LoginedUser user = LoginedUserDao.getByToken(session, token);
 
-        ThreadSafeQueue.getInstance().offer(new Connection(token);
+        ThreadSafeQueue.getInstance().offer(new Connection(token));
         String GameURL = "wtfis.ru:8090/gs/12345";
         return Response.ok(GameURL).build();
     }

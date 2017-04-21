@@ -11,13 +11,10 @@ public class Token {
     public Token() {
     }
 
-    public static Long createToken() {
+    public static String createToken() {
         long counter = random.nextLong();
-        return ((Long) counter);
+        return (String.valueOf(counter));
     }
 
-    public Long tokenToLong() {
-        return ;
-    }
 
 }

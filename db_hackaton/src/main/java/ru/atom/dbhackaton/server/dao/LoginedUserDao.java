@@ -36,7 +36,7 @@ public class LoginedUserDao {
                 .uniqueResult();
     }
 
-    public static LoginedUser getByToken(Session session, Long token) {
+    public static LoginedUser getByToken(Session session, String token) {
         return (LoginedUser) session
                 .createQuery("from LoginedUser where token = :token")
                 .setParameter("token", token)
