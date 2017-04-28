@@ -73,7 +73,7 @@ public class AuthService {
         }
     }
 
-    public static void logout(Long token) throws AuthException {
+    public static void logout(String token) throws AuthException {
         Transaction txn = null;
         try (Session session = Database.session()) {
             txn = session.beginTransaction();

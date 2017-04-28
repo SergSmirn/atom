@@ -43,7 +43,7 @@ public class LoginedUserDao {
                 .uniqueResult();
     }
 
-    public void removeUser(Session session, Long token) {
+    public void removeUser(Session session, String token) {
         session.createQuery("delete loguser where token = :token")
                 .setParameter("token", token).executeUpdate();
     }

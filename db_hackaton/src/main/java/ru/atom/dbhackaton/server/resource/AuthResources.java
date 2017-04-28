@@ -49,7 +49,7 @@ public class AuthResources {
     @Path("/logout")
     @Consumes("application/x-www-form-urlencoded")
     @Authorized
-    public Response logout(@HeaderParam(HttpHeaders.AUTHORIZATION) Long token) {
+    public Response logout(@HeaderParam(HttpHeaders.AUTHORIZATION) String token) {
         try {
             AuthService.logout(token);
         } catch (AuthException e) {

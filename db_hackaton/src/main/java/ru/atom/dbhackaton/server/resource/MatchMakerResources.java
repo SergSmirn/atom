@@ -9,6 +9,7 @@ import ru.atom.dbhackaton.server.dao.LoginedUserDao;
 import ru.atom.dbhackaton.server.mm.Connection;
 import ru.atom.dbhackaton.server.mm.ThreadSafeQueue;
 import ru.atom.dbhackaton.server.model.LoginedUser;
+import ru.atom.dbhackaton.server.service.MatchMakerService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -19,18 +20,22 @@ import javax.ws.rs.core.Response;
 
 @Path("/")
 public class MatchMakerResources {
-    private static final Logger log = LogManager.getLogger(ru.atom.dbhackaton.server.mm.ConnectionHandler.class);
+    private static final Logger log = LogManager.getLogger(ru.atom.dbhackaton.server.resource.MatchMakerResources.class);
+    public static MatchMakerService matchMakerService = new MatchMakerService();
 
     @Path("/join")
     @GET
     @Consumes("application/x-www-form-urlencoded")
     public Response join(@QueryParam("token") String token) {
 
-        Session session = Database.session();
+        //Session session = Database.session();
+        //LoginedUser user = LoginedUserDao.getByToken(session, token);
 
-        LoginedUser user = LoginedUserDao.getByToken(session, token);
+        long gameSessionId = matchMakerService.join(token);
+        if (gameSessionId == -1) {
+            return Response.status(Response.Status.OK).entity("Please, wait :)").build();
+        }
 
-        ThreadSafeQueue.getInstance().offer(new Connection((token)));
         String GameURL = "wtfis.ru:8090/gs/12345";
         return Response.ok(GameURL).build();
     }
@@ -41,7 +46,6 @@ public class MatchMakerResources {
     public Response finish(@FormParam("json") String json) {
         final Gson gson = new Gson();
         //TODO
-
 
         log.info("Result");
 
